@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/imageViewAdvertisement"
+        android:layout_width="300dp"
+        android:layout_height="112dp"
+        android:adjustViewBounds="true"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/advertisement"
+        tools:src="@drawable/ic_category_checked_bg">
+
+    </ImageView>
+</layout>
