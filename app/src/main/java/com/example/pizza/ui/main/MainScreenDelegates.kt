@@ -1,8 +1,13 @@
 package com.example.pizza.ui.main
 
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
+import com.bumptech.glide.request.RequestOptions
 import com.example.pizza.R
-import com.example.pizza.core.models.Food
+import com.example.pizza.core.models.Meal
 import com.example.pizza.core.base.ListItem
 import com.example.pizza.core.models.Advertisement
 import com.example.pizza.core.models.Category
@@ -14,7 +19,7 @@ import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 object MainScreenDelegates {
 
-    fun foodVerticalDelegate() = adapterDelegateViewBinding<Food, ListItem, ItemFoodBinding>(
+    fun foodVerticalDelegate() = adapterDelegateViewBinding<Meal, ListItem, ItemFoodBinding>(
         { inflater, container ->
             ItemFoodBinding.inflate(inflater, container, false)
         }
@@ -25,9 +30,27 @@ object MainScreenDelegates {
 
             with(binding) {
                 textViewFoodTitle.text = item.title
-                textViewFoodInfo.text = item.info
-                textViewPrice.text = item.price
-                Glide.with(root).load(R.drawable.pizza_sample).into(imageViewFoodIcon)
+                textViewPrice.text = String.format(getString(R.string.price), item.price)
+
+                val requestOptions = RequestOptions()
+                    .error(R.drawable.connection_error_image)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+
+                Glide.with(root)
+                    .applyDefaultRequestOptions(requestOptions)
+                    .load(item.imagePath)
+                    .override(
+                        resources.getDimensionPixelSize(R.dimen.food_image_width),
+                        resources.getDimensionPixelSize(R.dimen.food_image_height)
+                    )
+                    .transform(
+                        CenterCrop(),
+                        RoundedCorners(resources.getDimensionPixelSize(R.dimen.food_image_radius))
+                    )
+                    .transition(withCrossFade())
+                    .into(imageViewFoodIcon)
+
+                executePendingBindings()
             }
         }
     }
@@ -73,7 +96,8 @@ object MainScreenDelegates {
             bind {
                 Glide
                     .with(binding.root)
-                    .load(this.getDrawable(R.drawable.ic_category_checked_bg))
+                    .load(item.image)
+                    .transition(withCrossFade())
                     .into(binding.imageViewAdvertisement)
             }
         }

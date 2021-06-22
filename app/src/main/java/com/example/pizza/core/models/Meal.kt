@@ -2,12 +2,12 @@ package com.example.pizza.core.models
 
 import com.example.pizza.core.base.ListItem
 
-data class Food(
+data class Meal(
+    val id: Int,
     val title: String,
-    val info: String,
-    val price: String,
-    val imagePath: String? = null,
+    val imagePath: String,
+    val price: Int,
 ) : ListItem {
     override val itemId: Int
-        get() = title.hashCode() + price.hashCode()
+        get() = id
 }

@@ -64,4 +64,37 @@ dependencies {
     implementation libs.delegateAdapter
     implementation libs.delegateAdapterViewBinding
 
+    // Lifecycle
+    implementation libs.lifecycleViewModel
+    implementation libs.lifecycleLiveData
+    kapt libs.lifecycleCompiler
+
+    // Retrofit and Moshi
+    implementation libs.retrofit
+    implementation libs.moshiConverter
+    implementation libs.moshi
+    implementation libs.moshiKotlin
+
+    // Coroutines
+    implementation libs.coroutinesAndroid
+    implementation libs.coroutines
+
+    // Room and Lifecycle dependencies
+    implementation libs.room
+    kapt libs.roomCompiler
+    implementation libs.lifecycleExt
+
+    // Kotlin Extensions and Coroutines support for Room
+    implementation libs.roomExt
+
+    // Dagger
+    implementation libs.dagger
+    kapt libs.daggerCompiler
+
+    // Dagger support for android
+    implementation libs.daggerAndroid
+    implementation libs.daggerAndroidSupport
+    kapt libs.daggerAndroidCompiler
+
+
 }

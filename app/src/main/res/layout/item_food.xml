@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/imageViewFoodIcon"
-            android:layout_width="135dp"
-            android:layout_height="135dp"
+            android:layout_width="@dimen/food_image_width"
+            android:layout_height="@dimen/food_image_height"
             android:contentDescription="@string/food_picture"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/textViewFoodTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="sans-serif-black"
@@ -31,23 +31,11 @@
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/imageViewFoodIcon"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
             tools:text="Ветчина и грибы" />
 
-        <TextView
-            android:id="@+id/textViewFoodInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/grey"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@id/textViewPrice"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imageViewFoodIcon"
-            app:layout_constraintTop_toBottomOf="@id/textViewFoodTitle"
-            tools:text="Ветчина,шампиньоны, увеличинная порция моцареллы, томатный соус" />
+
 
         <TextView
             android:id="@+id/textViewPrice"

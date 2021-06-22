@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Pizza</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">Get Meal</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="food_picture">Food picture</string>
     <string name="advertisement">advertisement</string>
@@ -9,4 +8,14 @@
         <item>Краснодар</item>
         <item>Питер</item>
     </string-array>
+    <string-array name="categories">
+        <item>Beef</item>
+        <item>Chicken</item>
+        <item>Pork</item>
+        <item>Goat</item>
+        <item>Vegan</item>
+        <item>Seafood</item>
+        <item>Dessert</item>
+    </string-array>
+    <string name="price">от %sр</string>
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="food_image_radius">10dp</dimen>
+    <dimen name="food_image_width">135dp</dimen>
+    <dimen name="food_image_height">135dp</dimen>
+</resources>
