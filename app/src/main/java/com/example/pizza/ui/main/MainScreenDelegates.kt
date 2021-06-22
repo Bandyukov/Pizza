@@ -84,6 +84,8 @@ object MainScreenDelegates {
                         onCategoryClickListener.onCategoryClick(adapterPosition)
                     }
                 }
+
+                binding.executePendingBindings()
             }
         }
 

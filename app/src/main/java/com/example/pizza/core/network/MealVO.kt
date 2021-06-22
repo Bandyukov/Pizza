@@ -14,6 +14,7 @@ data class MealVO(
     @Json(name = "strMealThumb")
     val imagePath: String,
 
+    // В апишке, что я нашел, не было цены, поэтому пускай она будет рандомной
     val price: Int = (100..999).random()
 
 )
