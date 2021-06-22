@@ -3,6 +3,7 @@ package com.example.pizza.core.DI
 import android.app.Application
 import com.example.pizza.core.DB.MealDao
 import com.example.pizza.core.DB.MealDatabase
+import com.example.pizza.core.preferences.AppPreferences
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -32,5 +33,10 @@ abstract class AppModule {
         @Singleton
         fun provideDAO(application: Application): MealDao =
             MealDatabase.getInstance(application).mealDao
+
+        @Provides
+        @Singleton
+        fun provideAppPreferences(application: Application) : AppPreferences =
+            AppPreferences.getInstance(application)
     }
 }

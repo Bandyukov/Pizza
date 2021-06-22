@@ -62,7 +62,6 @@ object MainScreenDelegates {
             }
         ) {
             bind {
-                val resources = binding.root.resources
 
                 val bgDefault = this.getDrawable(R.drawable.ic_category_bg)
                 val bgChecked = this.getDrawable(R.drawable.ic_category_checked_bg)
@@ -70,18 +69,19 @@ object MainScreenDelegates {
                 val brightPink = this.getColor(R.color.bright_pink)
                 val lightGrey = this.getColor(R.color.light_grey)
 
-                binding.textViewCategoryName.text = item.name
+                with(binding.textViewCategoryName) {
+                    text = item.name
 
-                binding.textViewCategoryName.setOnClickListener {
-                    onCategoryClickListener.onCategoryClick(adapterPosition)
-                    with(binding.textViewCategoryName) {
-                        if (item.isChecked) {
-                            background = bgChecked
-                            setTextColor(brightPink)
-                        } else {
-                            background = bgDefault
-                            setTextColor(lightGrey)
-                        }
+                    if (item.isChecked) {
+                        background = bgChecked
+                        setTextColor(brightPink)
+                    } else {
+                        background = bgDefault
+                        setTextColor(lightGrey)
+                    }
+
+                    setOnClickListener {
+                        onCategoryClickListener.onCategoryClick(adapterPosition)
                     }
                 }
             }

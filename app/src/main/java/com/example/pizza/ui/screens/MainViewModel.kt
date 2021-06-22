@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pizza.R
 import com.example.pizza.core.DI.resources.ResourceProvider
-import com.example.pizza.core.mapping.toMeal
 import com.example.pizza.core.models.Advertisement
 import com.example.pizza.core.models.Category
 import com.example.pizza.core.models.Meal
@@ -24,10 +23,10 @@ class MainViewModel @Inject constructor(
     val meals: LiveData<List<Meal>> get() = _meals
 
     private val _adds = MutableLiveData<List<Advertisement>>()
-    val adds : LiveData<List<Advertisement>> get() = _adds
+    val adds: LiveData<List<Advertisement>> get() = _adds
 
     private val _categories = MutableLiveData<List<Category>>()
-    val category: LiveData<List<Category>> get() = _categories
+    val categories: LiveData<List<Category>> get() = _categories
 
     init {
         loadData()
@@ -36,13 +35,41 @@ class MainViewModel @Inject constructor(
     private fun loadData() {
         getAdds()
         getCategories()
-        getMeals()
+        initialLoading()
     }
 
-    private fun getMeals() {
+    // В данном методе проверяется какая категория использовалась при последнем запуске
+    // Так как в приложение кэшируются продукты из этой последней категории
+    // то я посчитал, что пользователю надо эту категорию соответственно подсвечивать
+    private fun initialLoading() {
+        val categoryStr: String? = repository.getLastCategory()
+        categories.value?.let {
+            // Срабабтывает только при самом первом запуске приложения
+            if (categoryStr == null) {
+                it[0].isChecked = true
+                _categories.value = it
+                getMeals(it[0])
+            } // Во всех остальных случаях
+            else {
+                for (i in it.indices) {
+                    if (it[i].name.equals(categoryStr)) {
+                        it[i].isChecked = true
+                        _categories.value = it
+                        getMeals(it[i])
+                        break
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getMeals(category: Category) {
         viewModelScope.launch(Dispatchers.IO) {
-            val meals = repository.getMeals()
-            _meals.postValue(meals)
+            categories.value?.let {
+                val meals = repository.getMeals(category)
+                _meals.postValue(meals)
+            }
+
         }
     }
 
@@ -68,5 +95,15 @@ class MainViewModel @Inject constructor(
         )
     }
 
+    fun check(position: Int) {
+        _categories.value?.let { categories ->
+            categories.map { it.isChecked = false }
+            categories[position].isChecked = true
+            _categories.value = categories
+
+            val category = categories[position]
+            getMeals(category)
+        }
+    }
 
 }

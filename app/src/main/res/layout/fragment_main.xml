@@ -31,25 +31,6 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_advertisement" />
 
-<!--                <ImageView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:src="@drawable/adver_sample"-->
-<!--                    app:layout_collapseMode="none"/>-->
-
-<!--                <androidx.appcompat.widget.Toolbar-->
-<!--                    android:id="@+id/toolbar"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="?attr/actionBarSize"-->
-<!--                    android:background="@color/purple_500"-->
-<!--                    app:titleTextColor="@android:color/white"-->
-<!--                    app:title="TITLE"/>-->
-
-<!--                <com.example.pizza.ui.customViews.MainToolbar-->
-<!--                    android:id="@+id/myToolbar"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"/>-->
-
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -57,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_category" />
 
@@ -76,12 +58,3 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
-
-    <!--<ImageView-->
-    <!--android:id="@+id/imageViewSample"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:adjustViewBounds="true"-->
-    <!--android:layout_margin="12dp"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:src="@drawable/adver_sample"/>-->
