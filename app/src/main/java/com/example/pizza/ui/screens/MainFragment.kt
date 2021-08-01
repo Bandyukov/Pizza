@@ -18,7 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
 class MainFragment : BaseFragment(), OnCategoryClickListener {
 
     private lateinit var binding: FragmentMainBinding
@@ -52,11 +51,7 @@ class MainFragment : BaseFragment(), OnCategoryClickListener {
     override fun getLayoutId(): Int = R.layout.fragment_main
 
     override fun setObservers() {
-//        viewModel.meals.observe(viewLifecycleOwner) {
-//            if (it.isEmpty())
-//                showSnackbar(R.string.connection_error)
-//            foodAdapter.items = it
-//        }
+        viewModel.viewModelScope.launch { observe() }
 
         viewModel.adds.observe(viewLifecycleOwner) {
             advertisementAdapter.items = it
@@ -66,8 +61,6 @@ class MainFragment : BaseFragment(), OnCategoryClickListener {
             categoryAdapter.items = it
             categoryAdapter.notifyDataSetChanged()
         }
-
-        viewModel.viewModelScope.launch { observe() }
     }
 
     private fun setRecyclerAdapters() {

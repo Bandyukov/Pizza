@@ -19,9 +19,6 @@ class MainViewModel @Inject constructor(
     private val resources: ResourceProvider,
 ) : ViewModel() {
 
-    private val _meals = MutableLiveData<List<Meal>>()
-    val meals: LiveData<List<Meal>> get() = _meals
-
     private val _adds = MutableLiveData<List<Advertisement>>()
     val adds: LiveData<List<Advertisement>> get() = _adds
 
