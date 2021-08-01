@@ -69,12 +69,6 @@ dependencies {
     implementation libs.lifecycleLiveData
     kapt libs.lifecycleCompiler
 
-    // Retrofit and Moshi
-    implementation libs.retrofit
-    implementation libs.moshiConverter
-    implementation libs.moshi
-    implementation libs.moshiKotlin
-
     // Coroutines
     implementation libs.coroutinesAndroid
     implementation libs.coroutines
@@ -95,6 +89,8 @@ dependencies {
     implementation libs.daggerAndroid
     implementation libs.daggerAndroidSupport
     kapt libs.daggerAndroidCompiler
+
+    implementation project(":core-network")
 
 
 }

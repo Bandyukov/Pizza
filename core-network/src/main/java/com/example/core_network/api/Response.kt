@@ -1,4 +1,4 @@
-package com.example.pizza.core.network
+package com.example.core_network.api
 
 import com.squareup.moshi.Json
 

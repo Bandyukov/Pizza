@@ -2,6 +2,7 @@ package com.example.pizza.core.DI
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
+import com.example.core_network.datasource.MealsRemoteDataSource
 import com.example.pizza.App
 import com.example.pizza.core.DI.resources.ResourceProvider
 import com.example.pizza.core.DI.resources.ResourcesModule
@@ -26,12 +27,13 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent : AndroidInjector<App> {
 
-    fun resources() : ResourceProvider
-
     @Component.Builder
     interface Builder {
         @BindsInstance
         fun application(application: Application): Builder
+
+        @BindsInstance
+        fun datasource(remoteDataSource: MealsRemoteDataSource) : Builder
 
         fun build(): AppComponent
     }

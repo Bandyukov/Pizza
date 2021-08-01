@@ -1,10 +1,21 @@
 package com.example.pizza
 
+import com.example.core_network.DI.DaggerNetworkComponent
+import com.example.pizza.core.DI.AppComponent
 import com.example.pizza.core.DI.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 
 class App : DaggerApplication() {
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
-        DaggerAppComponent.builder().application(this).build()
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> = initDI()
+
+    private fun initDI() : AppComponent {
+        DI.networkComponent = DaggerNetworkComponent.create()
+        DI.appComponent = DaggerAppComponent.builder()
+            .application(this)
+            .datasource(DI.networkComponent.datasource())
+            .build()
+        return DI.appComponent
+    }
 }

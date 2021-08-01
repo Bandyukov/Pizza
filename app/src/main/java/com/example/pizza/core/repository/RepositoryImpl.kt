@@ -1,21 +1,18 @@
 package com.example.pizza.core.repository
 
+import com.example.core_network.datasource.MealsRemoteDataSource
 import com.example.pizza.core.DB.MealDao
 import com.example.pizza.core.mapping.toMeal
 import com.example.pizza.core.mapping.toMealDB
 import com.example.pizza.core.models.Category
 import com.example.pizza.core.models.Meal
-import com.example.pizza.core.network.MealVO
-import com.example.pizza.core.network.MealsApi
 import com.example.pizza.core.preferences.AppPreferences
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
-    private val mealsApi: MealsApi,
+    private val dataSource: MealsRemoteDataSource,
     private val mealDao: MealDao,
     private val appPreferences: AppPreferences,
 ) : Repository {
@@ -25,7 +22,7 @@ class RepositoryImpl @Inject constructor(
         var meals = listOf<Meal>()
 
         // Вызываем get запрос
-        getMealsFromNet(category)
+        dataSource.getMealsFromNet(category.name)
             .catch {
                 // Если получаем ощибку, то покажем пользователю данные из локальной базы
                 val mealsDB = mealDao.getAllMealsFromDB()
@@ -47,9 +44,6 @@ class RepositoryImpl @Inject constructor(
 
         return meals
     }
-
-    private fun getMealsFromNet(category: Category) : Flow<List<MealVO>> =
-        flow { emit(mealsApi.getMealsByCategory(1, category.name).meals) }
 
     override fun getLastCategory() : String? = appPreferences.getLastCategory()
 }
