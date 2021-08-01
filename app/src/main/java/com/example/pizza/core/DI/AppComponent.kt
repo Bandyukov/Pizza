@@ -1,10 +1,12 @@
 package com.example.pizza.core.DI
 
 import android.app.Application
+import androidx.lifecycle.ViewModel
 import com.example.pizza.App
 import com.example.pizza.core.DI.resources.ResourceProvider
 import com.example.pizza.core.DI.resources.ResourcesModule
 import com.example.pizza.core.DI.viewModel.ViewModelFactoryModule
+import com.example.pizza.ui.base.BaseFragment
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
