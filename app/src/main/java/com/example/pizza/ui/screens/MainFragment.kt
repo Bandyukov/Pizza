@@ -4,18 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import com.example.pizza.R
 import com.example.pizza.databinding.FragmentMainBinding
-import com.example.pizza.databinding.FragmentMainBindingImpl
 import com.example.pizza.ui.adapters.AdvertisementAdapter
 import com.example.pizza.ui.adapters.CategoryAdapter
 import com.example.pizza.ui.adapters.FoodAdapter
 import com.example.pizza.ui.adapters.OnCategoryClickListener
 import com.example.pizza.ui.base.BaseFragment
-import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MainFragment : BaseFragment(), OnCategoryClickListener {
@@ -44,16 +45,18 @@ class MainFragment : BaseFragment(), OnCategoryClickListener {
         return binding.root
     }
 
-    override fun onCategoryClick(position: Int) = viewModel.check(position)
+    override fun onCategoryClick(position: Int) {
+        viewModel.check(position)
+    }
 
     override fun getLayoutId(): Int = R.layout.fragment_main
 
     override fun setObservers() {
-        viewModel.meals.observe(viewLifecycleOwner) {
-            if (it.isEmpty())
-                showSnackbar(R.string.connection_error)
-            foodAdapter.items = it
-        }
+//        viewModel.meals.observe(viewLifecycleOwner) {
+//            if (it.isEmpty())
+//                showSnackbar(R.string.connection_error)
+//            foodAdapter.items = it
+//        }
 
         viewModel.adds.observe(viewLifecycleOwner) {
             advertisementAdapter.items = it
@@ -63,12 +66,22 @@ class MainFragment : BaseFragment(), OnCategoryClickListener {
             categoryAdapter.items = it
             categoryAdapter.notifyDataSetChanged()
         }
+
+        viewModel.viewModelScope.launch { observe() }
     }
 
     private fun setRecyclerAdapters() {
         binding.recyclerViewMeals.adapter = foodAdapter
         binding.recyclerViewCategories.adapter = categoryAdapter
         binding.recyclerViewAdvertisement.adapter = advertisementAdapter
+    }
+
+    private suspend fun observe() = withContext(Dispatchers.Main) {
+        viewModel.data().observe(viewLifecycleOwner) {
+            if (it == null)
+                showSnackbar(R.string.connection_error)
+            foodAdapter.items = it
+        }
     }
 
 }

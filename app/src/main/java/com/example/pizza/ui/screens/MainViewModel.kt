@@ -66,8 +66,7 @@ class MainViewModel @Inject constructor(
     private fun getMeals(category: Category) {
         viewModelScope.launch(Dispatchers.IO) {
             categories.value?.let {
-                val meals = repository.getMeals(category)
-                _meals.postValue(meals)
+                repository.getMeals(category)
             }
 
         }
@@ -94,6 +93,8 @@ class MainViewModel @Inject constructor(
             ),
         )
     }
+
+    fun data(): LiveData<List<Meal>> = repository.observeDB()
 
     fun check(position: Int) {
         _categories.value?.let { categories ->

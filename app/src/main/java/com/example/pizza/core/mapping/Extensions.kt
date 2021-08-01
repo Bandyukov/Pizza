@@ -9,3 +9,7 @@ fun MealVO.toMeal() : Meal = Meal(id, title, imagePath, price)
 fun MealVO.toMealDB() : MealDB = MealDB(id, title, imagePath, price)
 
 fun MealDB.toMeal() : Meal = Meal(id, title, imagePath, price)
+
+fun List<MealDB>.toMealList() : List<Meal> = this.map { it.toMeal() }
+
+fun Meal.toMealDB() : MealDB = MealDB(id, title, imagePath, price)

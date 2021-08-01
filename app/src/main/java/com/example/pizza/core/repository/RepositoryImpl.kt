@@ -1,9 +1,12 @@
 package com.example.pizza.core.repository
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.example.core_network.datasource.MealsRemoteDataSource
 import com.example.pizza.core.DB.MealDao
-import com.example.pizza.core.mapping.toMeal
 import com.example.pizza.core.mapping.toMealDB
+import com.example.pizza.core.mapping.toMealList
 import com.example.pizza.core.models.Category
 import com.example.pizza.core.models.Meal
 import com.example.pizza.core.preferences.AppPreferences
@@ -17,16 +20,13 @@ class RepositoryImpl @Inject constructor(
     private val appPreferences: AppPreferences,
 ) : Repository {
 
-    override suspend fun getMeals(category: Category): List<Meal> {
-
-        var meals = listOf<Meal>()
-
-        // Вызываем get запрос
+    override suspend fun getMeals(category: Category) =
         dataSource.getMealsFromNet(category.name)
             .catch {
                 // Если получаем ощибку, то покажем пользователю данные из локальной базы
-                val mealsDB = mealDao.getAllMealsFromDB()
-                meals = mealsDB.map { it.toMeal() }
+//                val mealsDB = mealDao.getAllMealsFromDB()
+//                meals = mealsDB.map { it.toMeal() }
+                processError()
             }
             .collect { mealsVO ->
                 // Если все хорошо, то кэшируем полученные данные и показывем их пользователю
@@ -36,14 +36,20 @@ class RepositoryImpl @Inject constructor(
                 mealDao.deleteAllMealsFromDB()
 
                 mealDao.insertMealsIntoDB(mealsDB)
-                meals = mealsVO.map { it.toMeal() }
 
                 // Запомним текущую категорию
                 appPreferences.setLastCategory(category.name)
             }
 
-        return meals
+
+
+    override fun getLastCategory(): String? = appPreferences.getLastCategory()
+
+    override fun observeDB(): LiveData<List<Meal>> = mealDao.getAllMealsFromDB().map {
+        it.toMealList()
     }
 
-    override fun getLastCategory() : String? = appPreferences.getLastCategory()
+    private fun processError() {
+        Log.i("zxcv", "Error")
+    }
 }
