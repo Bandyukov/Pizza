@@ -7,6 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface Repository {
     suspend fun getMeals(category: Category) : List<Meal>
-    suspend fun getMealsFromNet(category: Category) : Flow<List<MealVO>>
     fun getLastCategory() : String?
 }

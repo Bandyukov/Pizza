@@ -48,7 +48,7 @@ class RepositoryImpl @Inject constructor(
         return meals
     }
 
-    override suspend fun getMealsFromNet(category: Category) : Flow<List<MealVO>> =
+    private fun getMealsFromNet(category: Category) : Flow<List<MealVO>> =
         flow { emit(mealsApi.getMealsByCategory(1, category.name).meals) }
 
     override fun getLastCategory() : String? = appPreferences.getLastCategory()
