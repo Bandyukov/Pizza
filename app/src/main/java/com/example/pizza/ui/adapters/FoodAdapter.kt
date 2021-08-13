@@ -5,8 +5,8 @@ import com.example.pizza.core.base.ListItem
 import com.example.pizza.ui.main.MainScreenDelegates
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
-class FoodAdapter : AsyncListDifferDelegationAdapter<ListItem>(BaseDiffUtilItemCallback()) {
+class FoodAdapter(navigate: () -> Unit) : AsyncListDifferDelegationAdapter<ListItem>(BaseDiffUtilItemCallback()) {
     init {
-        delegatesManager.addDelegate(MainScreenDelegates.foodVerticalDelegate())
+        delegatesManager.addDelegate(MainScreenDelegates.foodVerticalDelegate(navigate))
     }
 }

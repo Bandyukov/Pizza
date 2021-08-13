@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.annotation.StringRes
@@ -15,6 +14,7 @@ import com.example.pizza.R
 import com.example.pizza.core.DB.MealDB
 import com.example.pizza.core.models.Meal
 import com.example.pizza.ui.activities.MainActivity
+import timber.log.Timber
 
 fun MealVO.toMeal() : Meal = Meal(id, title, imagePath, price)
 
@@ -43,3 +43,7 @@ fun AppWidgetProvider.updateWidget(
 }
 
 fun Fragment.toast(@StringRes stringId: Int) = Toast.makeText(this.context, stringId, Toast.LENGTH_SHORT).show()
+
+fun logcat(text: String) = logcat("timber", text)
+
+fun logcat(key: String, text: String) = Timber.tag(key).i(text)

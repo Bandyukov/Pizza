@@ -90,6 +90,9 @@ dependencies {
     implementation libs.daggerAndroidSupport
     kapt libs.daggerAndroidCompiler
 
+    // Timber
+    implementation libs.timber
+
     implementation project(":core-network")
 
 

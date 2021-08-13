@@ -19,7 +19,7 @@ import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 object MainScreenDelegates {
 
-    fun foodVerticalDelegate() = adapterDelegateViewBinding<Meal, ListItem, ItemFoodBinding>(
+    fun foodVerticalDelegate(navigate: () -> Unit) = adapterDelegateViewBinding<Meal, ListItem, ItemFoodBinding>(
         { inflater, container ->
             ItemFoodBinding.inflate(inflater, container, false)
         }
@@ -49,6 +49,10 @@ object MainScreenDelegates {
                     )
                     .transition(withCrossFade())
                     .into(imageViewFoodIcon)
+
+                imageViewFoodIcon.setOnClickListener {
+                    navigate.invoke()
+                }
 
                 executePendingBindings()
             }

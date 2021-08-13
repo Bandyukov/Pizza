@@ -1,4 +1,4 @@
-package com.example.pizza
+package com.example.pizza.ui.widget
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider

@@ -66,4 +66,7 @@ ext.libs = [
         daggerAndroid             : "com.google.dagger:dagger-android:$versions.daggerAndroid",
         daggerAndroidSupport      : "com.google.dagger:dagger-android-support:$versions.daggerAndroid",
         daggerAndroidCompiler     : "com.google.dagger:dagger-android-processor:$versions.daggerAndroid",
+
+        // Timber
+        timber                    : 'com.jakewharton.timber:timber:5.0.0',
 ]

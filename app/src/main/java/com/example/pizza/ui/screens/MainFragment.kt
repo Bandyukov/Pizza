@@ -1,13 +1,11 @@
 package com.example.pizza.ui.screens
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import com.example.pizza.R
+import com.example.pizza.core.mapping.logcat
 import com.example.pizza.core.mapping.toast
 import com.example.pizza.databinding.FragmentMainBinding
 import com.example.pizza.ui.adapters.AdvertisementAdapter
@@ -21,11 +19,12 @@ import kotlinx.coroutines.withContext
 
 class MainFragment : BaseFragment<FragmentMainBinding>(), OnCategoryClickListener {
 
-    private val foodAdapter = FoodAdapter()
     private val categoryAdapter = CategoryAdapter(this)
     private val advertisementAdapter = AdvertisementAdapter()
 
     override val viewModel by viewModels<MainViewModel> { factory }
+
+    private val foodAdapter by lazy { FoodAdapter(viewModel::navigate) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,9 +61,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), OnCategoryClickListene
             if (it == null) {
                 showSnackbar(R.string.connection_error)
                 toast(R.string.connection_error)
+                logcat("error")
             }
             foodAdapter.items = it
         }
     }
+
 
 }

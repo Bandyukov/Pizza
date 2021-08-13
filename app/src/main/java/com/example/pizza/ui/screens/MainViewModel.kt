@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pizza.R
 import com.example.pizza.core.DI.resources.ResourceProvider
+import com.example.pizza.core.mapping.logcat
 import com.example.pizza.core.models.Advertisement
 import com.example.pizza.core.models.Category
 import com.example.pizza.core.models.Meal
@@ -102,6 +103,10 @@ class MainViewModel @Inject constructor(
             val category = categories[position]
             getMeals(category)
         }
+    }
+
+    fun navigate() {
+        logcat("navigated")
     }
 
 }

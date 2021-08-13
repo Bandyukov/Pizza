@@ -14,6 +14,7 @@ import com.example.pizza.core.DI.viewModel.ViewModelProviderFactory
 import com.example.pizza.databinding.FragmentMainBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 abstract class BaseFragment<T : ViewDataBinding> : DaggerFragment() {
@@ -37,6 +38,7 @@ abstract class BaseFragment<T : ViewDataBinding> : DaggerFragment() {
             false
         )
         setObservers()
+
         return binding.root
     }
 
