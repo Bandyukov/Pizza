@@ -105,8 +105,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun navigate() {
-        logcat("navigated")
-    }
+    fun navigate() { logcat("navigated") }
 
 }

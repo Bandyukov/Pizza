@@ -3,6 +3,7 @@ package com.example.pizza.core.DI.resources
 import android.annotation.SuppressLint
 import android.app.Application
 import android.graphics.drawable.Drawable
+import androidx.core.content.ContextCompat
 import javax.inject.Inject
 
 @SuppressLint("UseCompatLoadingForDrawables")
