@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import com.example.pizza.R
+import com.example.pizza.core.mapping.toast
 import com.example.pizza.databinding.FragmentMainBinding
 import com.example.pizza.ui.adapters.AdvertisementAdapter
 import com.example.pizza.ui.adapters.CategoryAdapter
@@ -18,9 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainFragment : BaseFragment(), OnCategoryClickListener {
-
-    private lateinit var binding: FragmentMainBinding
+class MainFragment : BaseFragment<FragmentMainBinding>(), OnCategoryClickListener {
 
     private val foodAdapter = FoodAdapter()
     private val categoryAdapter = CategoryAdapter(this)
@@ -28,20 +27,9 @@ class MainFragment : BaseFragment(), OnCategoryClickListener {
 
     override val viewModel by viewModels<MainViewModel> { factory }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            getLayoutId(),
-            container,
-            false
-        )
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setRecyclerAdapters()
-
-        return binding.root
     }
 
     override fun onCategoryClick(position: Int) {
@@ -71,8 +59,10 @@ class MainFragment : BaseFragment(), OnCategoryClickListener {
 
     private suspend fun observe() = withContext(Dispatchers.Main) {
         viewModel.data().observe(viewLifecycleOwner) {
-            if (it == null)
+            if (it == null) {
                 showSnackbar(R.string.connection_error)
+                toast(R.string.connection_error)
+            }
             foodAdapter.items = it
         }
     }
