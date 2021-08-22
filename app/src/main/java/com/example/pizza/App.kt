@@ -13,10 +13,12 @@ class App : DaggerApplication() {
 
     private fun initDI(): AppComponent {
         DI.networkComponent = DaggerNetworkComponent.create()
+
         DI.appComponent = DaggerAppComponent.builder()
             .application(this)
             .datasource(DI.networkComponent.datasource())
             .build()
+
         return DI.appComponent
     }
 

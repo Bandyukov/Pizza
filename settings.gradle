@@ -1,3 +1,4 @@
 include ':app'
 rootProject.name = "Pizza"
 include ':core-network'
+include ':lib-architecture'

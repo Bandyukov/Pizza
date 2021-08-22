@@ -1,6 +1,7 @@
 package com.example.pizza.core.DI.viewModel
 
 import androidx.lifecycle.ViewModelProvider
+import com.example.lib_architecture.viewmodel.ViewModelProviderFactory
 import dagger.Binds
 import dagger.Module
 

@@ -8,7 +8,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withC
 import com.bumptech.glide.request.RequestOptions
 import com.example.pizza.R
 import com.example.pizza.core.models.Meal
-import com.example.pizza.core.base.ListItem
+import com.example.lib_architecture.base.ListItem
+import com.example.pizza.core.mapping.default
 import com.example.pizza.core.models.Advertisement
 import com.example.pizza.core.models.Category
 import com.example.pizza.databinding.ItemAdvertisementBinding
@@ -32,12 +33,8 @@ object MainScreenDelegates {
                 textViewFoodTitle.text = item.title
                 textViewPrice.text = String.format(getString(R.string.price), item.price)
 
-                val requestOptions = RequestOptions()
-                    .error(R.drawable.connection_error_image)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-
                 Glide.with(root)
-                    .applyDefaultRequestOptions(requestOptions)
+                    .applyDefaultRequestOptions(RequestOptions().default())
                     .load(item.imagePath)
                     .override(
                         resources.getDimensionPixelSize(R.dimen.food_image_width),

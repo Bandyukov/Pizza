@@ -5,10 +5,18 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.widget.RemoteViews
 import android.widget.Toast
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.core_network.api.MealVO
 import com.example.pizza.R
 import com.example.pizza.core.DB.MealDB
@@ -47,3 +55,16 @@ fun Fragment.toast(@StringRes stringId: Int) = Toast.makeText(this.context, stri
 fun logcat(text: String) = logcat("timber", text)
 
 fun logcat(key: String, text: String) = Timber.tag(key).i(text)
+
+infix fun String.get(index: Int) : Char {
+    val cs = this as CharSequence
+    return cs[index]
+}
+
+fun Context.getDrawableCompat(@DrawableRes id: Int) : Drawable = AppCompatResources.getDrawable(this, id)!!
+
+fun Context.getColorCompat(@ColorRes id: Int) : Int = ContextCompat.getColor(this, id)
+
+fun RequestOptions.default() : RequestOptions = this
+    .error(R.drawable.connection_error_image)
+    .diskCacheStrategy(DiskCacheStrategy.ALL)

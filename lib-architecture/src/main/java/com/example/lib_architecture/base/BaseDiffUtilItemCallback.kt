@@ -1,4 +1,4 @@
-package com.example.pizza.core.base
+package com.example.lib_architecture.base
 
 import androidx.recyclerview.widget.DiffUtil
 

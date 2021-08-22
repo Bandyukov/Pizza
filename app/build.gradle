@@ -94,6 +94,7 @@ dependencies {
     implementation libs.timber
 
     implementation project(":core-network")
+    implementation project(":lib-architecture")
 
 
 }

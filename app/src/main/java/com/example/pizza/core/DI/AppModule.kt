@@ -1,6 +1,7 @@
 package com.example.pizza.core.DI
 
 import android.app.Application
+import android.content.Context
 import com.example.pizza.core.DB.MealDao
 import com.example.pizza.core.DB.MealDatabase
 import com.example.pizza.core.preferences.AppPreferences
@@ -28,6 +29,10 @@ abstract class AppModule {
         @Singleton
         fun provideAppPreferences(application: Application) : AppPreferences =
             AppPreferences.getInstance(application)
+
+        @Provides
+        @Singleton
+        fun provideContext(application: Application) : Context = application.applicationContext
     }
 
 }

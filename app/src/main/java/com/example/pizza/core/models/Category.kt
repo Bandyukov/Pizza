@@ -1,6 +1,6 @@
 package com.example.pizza.core.models
 
-import com.example.pizza.core.base.ListItem
+import com.example.lib_architecture.base.ListItem
 
 data class Category(
     val name: String,

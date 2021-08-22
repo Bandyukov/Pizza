@@ -12,7 +12,7 @@ import com.example.pizza.ui.adapters.AdvertisementAdapter
 import com.example.pizza.ui.adapters.CategoryAdapter
 import com.example.pizza.ui.adapters.FoodAdapter
 import com.example.pizza.ui.adapters.OnCategoryClickListener
-import com.example.pizza.ui.base.BaseFragment
+import com.example.lib_architecture.fragment.BaseFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

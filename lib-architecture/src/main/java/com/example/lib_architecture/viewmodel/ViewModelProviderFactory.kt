@@ -1,4 +1,4 @@
-package com.example.pizza.core.DI.viewModel
+package com.example.lib_architecture.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
